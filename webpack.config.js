@@ -3,7 +3,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const TerserWebpackPlugin = require("terser-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
@@ -15,6 +14,12 @@ module.exports = {
   },
   resolve: {
     extensions: [".js"],
+    alias: {
+      '@utils': path.resolve(__dirname, 'src/utils/'),
+      '@templates': path.resolve(__dirname, 'src/templates/'),
+      '@styles': path.resolve(__dirname, 'src/styles/'),
+      '@images': path.resolve(__dirname, 'src/assets/images'),
+    }
   },
   module: {
     rules: [
@@ -42,7 +47,8 @@ module.exports = {
             mimetype: "application/font-woff",
             name: "[name].[contenthash].[ext][query]",
             outputPath: "./assets/fonts/",
-            publicPath: "./assets/fonts/",
+            // This is based on the location of our css file
+            publicPath: "./fonts/",
             esModule: false,
           },
         },
